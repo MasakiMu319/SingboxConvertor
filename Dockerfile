@@ -24,6 +24,8 @@ USER server
 WORKDIR /server
 COPY --from=builder /build/main .
 
+COPY ./web/frontend.html web/frontend.html
+
 WORKDIR /server/db
 
 EXPOSE 8080
