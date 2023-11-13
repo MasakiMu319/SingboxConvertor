@@ -41,9 +41,5 @@ Most changes to the profile template will be preserved, as will adding nodes to 
 - 0.1
   - Keep the core part of the code and use the gin framework.
   - (0.1.1) Fix container path issue.
-
-# Docker build
-
-```shell
-docker buildx build --platform linux/amd64 . -t jiumumu/singboxconvertor:latest --push --cache-to type=registry,ref=jiumumu/singboxconvertor-cache:latest,mode=max --cache-from type=registry,ref=jiumumu/singboxconvertor-cache:latest
-```
+- 0.2
+  - Adjusted page styles to add more shadows and animations.
