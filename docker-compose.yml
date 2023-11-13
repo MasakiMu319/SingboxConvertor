@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  clash2singbox:
+    image: jiumumu/singboxconvertor:latest
+    container_name: sc
+    restart: always
+    ports:
+      - "1986:8080"
+    volumes:
+      - singboxconvertor:/server/db
+
+volumes:
+  singboxconvertor:
