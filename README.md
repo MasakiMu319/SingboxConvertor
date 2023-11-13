@@ -11,9 +11,11 @@ If the generated configuration file is not available, check your configuration t
 The `port` environment variable controls the port on which the program runs. If not set, it opens on port 8080 by default.
 
 ## docker
-```
+```shell
 docker volume create singboxconvertor    
 docker run -d -p 8080:8080 -v singboxconvertor:/server/db jiumumu/singboxconvertor
+# inspect log
+docker logs -f $CONTAINER
 ```
 ## Usage
 - After launching, use your browser to visit http://ip:port
@@ -43,3 +45,4 @@ Most changes to the profile template will be preserved, as will adding nodes to 
   - (0.1.1) Fix container path issue.
 - 0.2
   - Adjusted page styles to add more shadows and animations.
+  - (0.2.2) Switch Gin to Release mode.
