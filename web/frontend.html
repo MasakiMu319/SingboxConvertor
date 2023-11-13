@@ -17,6 +17,82 @@
             border-bottom: 1px solid #e5e5e5;
             margin-bottom: 30px;
         }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* 更大更深的阴影 */
+            border-radius: 15px; /* 增加圆角 */
+            transition: all 0.3s;
+        }
+
+        input[type="text"],
+        textarea {
+            border: 1px solid #ddd;
+            padding: 8px;
+            border-radius: 15px; /* 增加圆角 */
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* 明显的阴影 */
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 聚焦时更大的阴影 */
+            transform: scale(1.03); /* 轻微放大 */
+        }
+
+        input[type="button"],
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 6px 10px; /* 进一步减小按钮大小 */
+            border: none;
+            border-radius: 20px; /* 更大的圆角 */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        input[type="button"]:hover,
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05); /* 鼠标悬浮时轻微放大 */
+        }
+
+        input[type="button"]:active,
+        button:active {
+            transform: scale(0.95); /* 点击时轻微缩放 */
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #ffffff;
+            }
+
+            .container {
+                background-color: #121212;
+                box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1); /* 深色模式下的阴影 */
+            }
+
+            input[type="text"],
+            textarea {
+                border: 1px solid #444;
+                background-color: #333;
+                color: white;
+            }
+        }
+
     </style>
 </head>
 
@@ -92,14 +168,7 @@
                 }
             })
 
-
             let oldConfig = "";
-
-            (async () => {
-                const f = await fetch("/config")
-                config.value = await f.text()
-                oldConfig = config.value
-            })();
 
             function saveParameter() {
                 const subUrl = new URL(new URL(location.href).origin)
