@@ -2,85 +2,55 @@ package service
 
 import (
 	"SingboxConvertor/model"
+	"SingboxConvertor/utils"
 	"bytes"
-	"context"
-	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/xmdhs/clash2singbox/httputils"
-	"log"
 	"net/http"
 	"regexp"
 	"strconv"
 
-	"SingboxConvertor/db"
 	"github.com/samber/lo"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
-	"lukechampine.com/blake3"
 )
-
-func PutArg(cxt context.Context, arg model.ConvertArg, db db.DB) (string, error) {
-	b, err := json.Marshal(arg)
-	if err != nil {
-		return "", fmt.Errorf("PutArg: %w", err)
-	}
-	hash := blake3.Sum256(b)
-	h := hex.EncodeToString(hash[:])
-	err = db.PutArg(cxt, h, arg)
-	if err != nil {
-		return "", fmt.Errorf("PutArg: %w", err)
-	}
-	return h, nil
-}
-
-func GetSub(cxt *gin.Context, c *http.Client, db db.DB, id string) ([]byte, error) {
-	arg, err := db.GetArg(cxt, id)
-	if err != nil {
-		return nil, fmt.Errorf("GetSub: %w", err)
-	}
-	b, err := MakeConfig(cxt, c, arg)
-	if err != nil {
-		return nil, fmt.Errorf("GetSub: %w", err)
-	}
-	return b, nil
-}
 
 func MakeConfig(cxt *gin.Context, c *http.Client, arg model.ConvertArg) ([]byte, error) {
 	//Get configuration.
 	if arg.ConfigUrl != "" {
 		b, err := httputils.HttpGet(cxt, c, arg.ConfigUrl, 1000*1000*10)
-		log.Println("External configuration url:", arg.ConfigUrl)
+		utils.ConvertorLogPrintln("External configuration url:", arg.ConfigUrl)
 		if err != nil {
-			log.Println("Get configuration error:", err)
+			utils.ConvertorLogPrintf(err, "Get configuration error:")
 			return nil, fmt.Errorf("MakeConfig: %w", err)
 		}
-		log.Println("Get configuration succeed")
+		utils.ConvertorLogPrintln("Get configuration succeed")
 		arg.Config = string(b)
 	}
 
 	// Convert.
 	b, err := convert2sing(cxt, c, arg.Config, arg.Sub, arg.Include, arg.Exclude, arg.AddTag)
 	if err != nil {
-		log.Println("Convert failed:", err)
+		utils.ConvertorLogPrintf(err, "Convert failed:")
 		return nil, fmt.Errorf("MakeConfig: %w", err)
 	}
-	log.Println("The Sing-box configuration has been generated succeed")
+	utils.ConvertorLogPrintln("The Sing-box configuration has been generated succeed")
 
 	// Add custom groups.
 	if len(arg.UrlTest) != 0 {
-		log.Println("Adding custom groups...")
+		utils.ConvertorLogPrintln("Adding custom groups...")
 		nb, err := customUrlTest(b, arg.UrlTest)
 		if err != nil {
-			log.Println("Add custom groups error.")
+			utils.ConvertorLogPrintln("Add custom groups error.")
 			return nil, fmt.Errorf("MakeConfig: %w", err)
 		}
 		b = nb
-		log.Println("Add custom groups succeed.")
+		utils.ConvertorLogPrintln("Add custom groups succeed.")
 	}
-	log.Println("============== Separator ==============")
+	utils.ConvertorLogPrintln("============== Separator ==============")
 	return b, nil
 }
 

@@ -68,7 +68,7 @@ func GetSubscription(c *gin.Context) {
 	if err != nil {
 		c.Data(http.StatusInternalServerError,
 			"application/json; charset=utf-8",
-			utils.GenRespJSON(http.StatusBadRequest, model.GenSubErr))
+			utils.GenRespJSON(http.StatusInternalServerError, model.GenSubErr))
 		return
 	}
 
