@@ -1,15 +1,23 @@
 package main
 
 import (
+	"SingboxConvertor/internal/api"
 	"github.com/gin-gonic/gin"
+	"os"
 )
 
 func main() {
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run()
+
+	// TODO: get external configuration should be an inner op.
+	//r.GET("/config", api.GetConfig)
+	r.GET("/sub", api.GetSubscription)
+	r.GET("/", api.GetFrontend)
+
+	// export PORT=8080
+	if p := os.Getenv("PORT"); p != "" {
+		_ = r.Run(":" + p)
+	} else {
+		_ = r.Run()
+	}
 }
