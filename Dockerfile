@@ -29,6 +29,9 @@ COPY ./web/frontend.html web/frontend.html
 WORKDIR /server/db
 
 EXPOSE 8080
+
+ENV GIN_MODE=release
+
 VOLUME /server/db
 
 CMD ["/server/main"]
