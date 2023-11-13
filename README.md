@@ -37,7 +37,8 @@ Most changes to the profile template will be preserved, as will adding nodes to 
 - tuic5
 
 # TO-DO list
-- web/frontend.html send some needless requests.
+- ~~web/frontend.html send some needless requests~~(Fixed in v0.2).
+- Refactor the central portion of the codebase.
 
 # Change Log
 - 0.1
