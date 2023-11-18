@@ -47,3 +47,6 @@ Most changes to the profile template will be preserved, as will adding nodes to 
 - 0.2
   - Adjusted page styles to add more shadows and animations.
   - (0.2.2) Switch Gin to Release mode.
+  - (0.2.3) Added more log information.
+- 0.3
+  - Refactor the project dependency structure and fix the Missing tag error caused by the filter node being empty.
