@@ -7,9 +7,9 @@ import (
 	"log"
 	"net/http"
 
+	"SingboxConvertor/clash2singbox/convert"
+	"SingboxConvertor/clash2singbox/httputils"
 	"github.com/tidwall/gjson"
-	"github.com/xmdhs/clash2singbox/convert"
-	"github.com/xmdhs/clash2singbox/httputils"
 )
 
 // convert2sing convert clash configuration to sing-box.
