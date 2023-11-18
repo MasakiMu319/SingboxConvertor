@@ -22,6 +22,12 @@ docker logs -f $CONTAINER
 
 - The New Profile in the sing-box Profiles fills in the remote link and allows you to switch nodes in Groups by starting a subscription.
 
+- You need to ensure that the template configuration file you use contains the complete content about DNS and offloading, otherwise the converted configuration file will be incorrect and unusable.
+
+- The converted subscription provides "HK", "TW", "JP", "SG", "US", "fallback" as the grouping of tags by default, and you can directly use them as outbound in the shunt rule.
+
+- Groups of type urltest use Apple domains for HTTP latency testing.
+
 ## Template Profile
 Most changes to the profile template will be preserved, as will adding nodes to the outbounds in the template.
 
