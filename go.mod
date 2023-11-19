@@ -3,15 +3,15 @@ module SingboxConvertor
 go 1.21
 
 require (
+	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/samber/lo v1.38.1
 	github.com/tidwall/gjson v1.17.0
 	github.com/tidwall/sjson v1.2.5
-	github.com/xmdhs/clash2sfa v0.10.0
 	github.com/xmdhs/clash2singbox v0.0.1
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
+	golang.org/x/sync v0.3.0
 	gopkg.in/yaml.v3 v3.0.1
-	lukechampine.com/blake3 v1.2.1
 )
 
 require (
@@ -34,11 +34,9 @@ require (
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
-	go.etcd.io/bbolt v1.3.7 // indirect
 	golang.org/x/arch v0.3.0 // indirect
 	golang.org/x/crypto v0.9.0 // indirect
 	golang.org/x/net v0.10.0 // indirect
-	golang.org/x/sync v0.3.0 // indirect
 	golang.org/x/sys v0.14.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect

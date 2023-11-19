@@ -1,5 +1,11 @@
 package model
 
+type SubArg struct {
+	Sub       string `json:"sub"`
+	ConfigUrl string `json:"configurl"`
+	AddTag    bool   `json:"addTag"`
+}
+
 type ConvertArg struct {
 	Sub       string
 	Include   string

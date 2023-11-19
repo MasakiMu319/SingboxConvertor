@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sing-box Config Convertor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.7/pico.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/frontend.css">
+    <link rel="stylesheet" type="text/css" href="web/frontend.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"
             integrity="sha512-g2TeAWw5GPnX7z0Kn8nFbYfeHcvAu/tx6d6mrLe/90mkCxO+RcptyYpksUz35EO337F83bZwcmUyHiHamspkfg=="
@@ -46,9 +46,9 @@
         <br/>
         <summary>Profile Template</summary>
         <input v-model="configurl" placeholder="External profile template"/>
-        <progress v-show="inFetch"></progress>
-        <button v-show="!inFetch" @click="click">Get the subscription link in single-box format</button>
-        <input type="text" v-model="newsub" ref="inputRef" v-if="newsub" placeholder="">
+        <progress v-if="isLoading"></progress>
+        <button @click="click">Get the subscription link in single-box format</button>
+        <input type="text" v-model="newsub" ref="inputRef" v-if="isResultAvailable" placeholder="">
     </main>
 
     <div class="container">
@@ -60,5 +60,64 @@
     </div>
 </div>
 </body>
-<script type="module" src="/static/app.js"></script>
 </html>
+
+<script type="module">
+    Vue.createApp({
+        setup() {
+            const sub = Vue.ref('');
+            const newsub = Vue.ref('');
+            const configurl = Vue.ref('');
+            const addTag = Vue.ref(false);
+            const isLoading = Vue.ref(false);
+            const isResultAvailable = Vue.ref(false);
+            const error = Vue.ref(null);
+
+            const click = async () => {
+                console.log("Click event triggered");
+
+                if (isLoading.value) {
+                    console.log("Another click event is in progress, ignoring this one");
+                    return;
+                }
+
+                isLoading.value = true; // Begin loading
+                isResultAvailable.value = false; // Reset newsub access
+                error.value = null;
+
+                try {
+                    const response = await fetch('/generate', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({sub: sub.value, configurl: configurl.value, addTag: addTag.value})
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Server response was not ok');
+                    }
+
+                    const data = await response.json();
+                    newsub.value = data.result; // Assume the server returns an attribute is named result
+                    isResultAvailable.value = true; // Display the newsub input field
+                } catch (error) {
+                    console.error('Error:', error);
+                    error.value = 'An error occurred during operation.';
+                } finally {
+                    isLoading.value = false; // Hide the progress bar upon completion of loading
+                }
+            }
+
+            return {
+                sub,
+                newsub,
+                configurl,
+                addTag,
+                isLoading,
+                isResultAvailable,
+                error,
+
+                click,
+            }
+        }
+    }).mount('#app');
+</script>

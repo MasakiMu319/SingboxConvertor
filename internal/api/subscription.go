@@ -16,7 +16,11 @@ func GetSubscription(c *gin.Context) {
 		UrlTest:   nil,
 	}
 
+	Convertor.Sub, _ = utils.Decrypt(Convertor.Sub, utils.Key)
+	Convertor.ConfigUrl, _ = utils.Decrypt(Convertor.ConfigUrl, utils.Key)
+
 	// Check subscription and external configuration are valid address.
+
 	if !utils.IsValidURL(Convertor.Sub) || !utils.IsValidURL(Convertor.ConfigUrl) {
 		c.Data(http.StatusBadRequest,
 			"application/json; charset=utf-8",
