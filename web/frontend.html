@@ -6,13 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sing-box Config Convertor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.7/pico.min.css">
-    <link rel="stylesheet" type="text/css" href="web/frontend.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"
             integrity="sha512-g2TeAWw5GPnX7z0Kn8nFbYfeHcvAu/tx6d6mrLe/90mkCxO+RcptyYpksUz35EO337F83bZwcmUyHiHamspkfg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.5/base64.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <style type="text/css">
+        .container, pre, code, input, textarea {
+            background-color: #ffffff;
+        }
+
+        body, pre, code {
+            color: #333333;
+        }
+
+        .container, input, textarea {
+            transition: all 0.3s;
+        }
+
+        input, textarea, input[type="button"], button {
+            border-radius: 15px;
+        }
+
+        input:focus, textarea:focus, input[type="button"]:hover, button:hover {
+            transform: scale(1.01);
+        }
+
+        input[type="button"], button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        header {
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 30px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+
+        input, textarea {
+            border: 1px solid #ddd;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input:focus, textarea:focus {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="button"], button {
+            padding: 6px 10px;
+            border: none;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        input[type="button"]:hover, button:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="button"]:active, button:active {
+            transform: scale(0.95);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body, pre, code, .container, input, textarea {
+                background-color: #121212;
+                color: #ffffff;
+            }
+
+            .container {
+                box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+            }
+
+            input, textarea {
+                border: 1px solid #444;
+                background-color: #333;
+                color: white;
+            }
+        }
+    </style>
 </head>
 
 <body>

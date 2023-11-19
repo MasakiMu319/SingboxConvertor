@@ -6,7 +6,6 @@ import (
 
 // GetFrontend show index page.
 func GetFrontend(c *gin.Context) {
-	c.File("web/frontend.html")
-
-	//c.File("/server/web/frontend.html")
+	//c.File("web/frontend.html")
+	c.File("/server/web/frontend.html")
 }
