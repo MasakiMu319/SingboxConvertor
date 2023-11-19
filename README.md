@@ -58,6 +58,7 @@ Most changes to the profile template will be preserved, as will adding nodes to 
   - Refactor the project dependency structure and fix the Missing tag error caused by the filter node being empty.
 - 0.4(dev)
   - Update index logo.
+  - Refactor project front-end page structure.
 
 # Docker build
 
