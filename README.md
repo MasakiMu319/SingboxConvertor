@@ -56,3 +56,11 @@ Most changes to the profile template will be preserved, as will adding nodes to 
   - (0.2.3) Added more log information.
 - 0.3
   - Refactor the project dependency structure and fix the Missing tag error caused by the filter node being empty.
+- 0.4(dev)
+  - Update index logo.
+
+# Docker build
+
+```shell
+docker buildx build --platform linux/amd64 . -t jiumumu/singboxconvertor:dev --push --cache-to type=registry,ref=jiumumu/singboxconvertor-cache:dev,mode=max --cache-from type=registry,ref=jiumumu/singboxconvertor-cache:dev
+```

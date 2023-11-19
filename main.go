@@ -10,6 +10,7 @@ import (
 func main() {
 	r := gin.Default()
 
+	r.Static("/static", "./web")
 	r.GET("/sub", api.GetSubscription)
 	r.GET("/", api.GetFrontend)
 
