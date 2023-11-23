@@ -187,18 +187,13 @@
                     newsub.value = data.result; // Assume the server returns an attribute is named result
                     isResultAvailable.value = true; // Display the newsub input field
 
-                    // 尝试复制到剪贴板
-                    if (navigator.clipboard) {
-                        try {
-                            await navigator.clipboard.writeText(data.result);
-                            alert('Result copied to clipboard'); // 弹窗提示复制成功
-                        } catch (err) {
-                            alert('Failed to copy result to clipboard'); // 弹窗提示复制失败
-                            console.error('Failed to copy result:', err);
-                        }
-                    } else {
-                        alert('Clipboard API is not available'); // 弹窗提示API不可用
-                    }
+                    let tempInput = document.createElement("input");
+                    tempInput.value = newsub.value; // Set its value
+                    document.body.appendChild(tempInput); // Append it to body
+                    tempInput.select(); // Select it
+                    document.execCommand("copy"); // Copy it
+                    document.body.removeChild(tempInput); // Finally remove the element
+                    alert('Copied to clipboard');
                 } catch (error) {
                     console.error('Error:', error);
                     error.value = 'An error occurred during operation.';

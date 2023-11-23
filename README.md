@@ -65,9 +65,10 @@ Most changes to the profile template will be preserved, as will adding nodes to 
   - Update index logo.
   - Refactor project front-end page structure.
   - Encrypt incoming subscription connections and external profiles.
+  
 
 # Docker build
 
 ```shell
-docker buildx build --platform linux/amd64 . -t jiumumu/singboxconvertor:dev --push --cache-to type=registry,ref=jiumumu/singboxconvertor-cache:dev,mode=max --cache-from type=registry,ref=jiumumu/singboxconvertor-cache:dev
-```
+docker buildx build --builder=container --platform linux/amd64 . -t jiumumu/singboxconvertor:dev --push --cache-to type=registry,ref=jiumumu/singboxconvertor-cache:dev,mode=max --cache-from type=registry,ref=jiumumu/singboxconvertor-cache:dev
+ ```
