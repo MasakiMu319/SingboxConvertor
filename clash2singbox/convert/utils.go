@@ -82,7 +82,7 @@ func Patch(b []byte, s []singbox.SingBoxOut, include, exclude string, extOut []i
 	s = append([]singbox.SingBoxOut{{
 		Type:      "selector",
 		Tag:       "select",
-		Outbounds: append([]string{"urltest"}, tags...),
+		Outbounds: append([]string{"direct", "urltest"}, tags...),
 		Default:   "urltest",
 	}}, s...)
 

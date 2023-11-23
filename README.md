@@ -65,7 +65,7 @@ Most changes to the profile template will be preserved, as will adding nodes to 
   - Update index logo.
   - Refactor project front-end page structure.
   - Encrypt incoming subscription connections and external profiles.
-  
+  - Fixed an issue with replication subscriptions.
 
 # Docker build
 
