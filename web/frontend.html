@@ -163,6 +163,16 @@
             const click = async () => {
                 console.log("Click event triggered");
 
+                // 获取 trim 后的 `sub` 和 `configurl`
+                let trimmedSub = sub.value.trim();
+                let trimmedConfigurl = configurl.value.trim();
+
+                // 检查 trim 后的 `sub` 和 `configurl` 是否为空
+                if (trimmedSub === '' || trimmedConfigurl === '') {
+                    alert('Please fill in both Subscription links and External profile template.');
+                    return;
+                }
+
                 if (isLoading.value) {
                     console.log("Another click event is in progress, ignoring this one");
                     return;
@@ -176,7 +186,11 @@
                     const response = await fetch('/generate', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({sub: sub.value, configurl: configurl.value, addTag: addTag.value})
+                        body: JSON.stringify({
+                            sub: trimmedSub,
+                            configurl: trimmedConfigurl,
+                            addTag: addTag.value
+                        })
                     });
 
                     if (!response.ok) {
@@ -194,6 +208,7 @@
                     document.execCommand("copy"); // Copy it
                     document.body.removeChild(tempInput); // Finally remove the element
                     alert('Copied to clipboard');
+
                 } catch (error) {
                     console.error('Error:', error);
                     error.value = 'An error occurred during operation.';
