@@ -43,7 +43,7 @@ func GetSubscription(c *gin.Context) {
 			},
 			{
 				Tag:     "TW",
-				Include: "TW|Taiwan|🇹🇼|台湾",
+				Include: "TW|Taiwan|🇹🇼|台湾|台灣",
 				Type:    "selector",
 			},
 			{
@@ -53,12 +53,12 @@ func GetSubscription(c *gin.Context) {
 			},
 			{
 				Tag:     "SG",
-				Include: "SG|Singapore|🇸🇬|新加坡",
+				Include: "SG|Singapore|🇸🇬|新加坡|獅城",
 				Type:    "selector",
 			},
 			{
 				Tag:     "US",
-				Include: "US|United States|🇺🇸|美国",
+				Include: "US|United States|🇺🇸|美国|美國",
 				Type:    "selector",
 			},
 			{

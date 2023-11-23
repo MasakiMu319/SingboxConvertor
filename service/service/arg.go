@@ -125,5 +125,5 @@ func filter(reg string, tags []string, need bool) ([]string, error) {
 		has := r.MatchString(item)
 		return has == need
 	})
-	return append([]string{"direct"}, tag...), nil
+	return append(tag, "direct"), nil
 }

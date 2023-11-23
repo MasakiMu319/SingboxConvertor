@@ -17,6 +17,7 @@ docker run -d -p 8080:8080 -v singboxconvertor:/server/db jiumumu/singboxconvert
 # inspect log
 docker logs -f $CONTAINER
 ```
+
 ## Usage
 - After launching, use your browser to visit http://ip:port
 
@@ -45,6 +46,10 @@ Most changes to the profile template will be preserved, as will adding nodes to 
 # TO-DO list
 - ~~web/frontend.html send some needless requests~~(Fixed in v0.2).
 - Refactor the central portion of the codebase.
+- When copying the generated subscription address in the dev version, the request to generate the subscription may be sent repeatedly. 
+  - dev 版本中复制生成的订阅地址的时候可能会重复发送生成订阅的请求
+- Scenarios where the server level fails to handle concurrent fetch requests correctly may result in lost requests or failure of the server level to issue subscription files correctly.
+  - 服务端无法正确处理并发获取请求的场景，可能会导致请求丢失或者服务端无法正确下发订阅文件。
 
 # Change Log
 - 0.1
@@ -60,3 +65,9 @@ Most changes to the profile template will be preserved, as will adding nodes to 
   - Update index logo.
   - Refactor project front-end page structure.
   - Encrypt incoming subscription connections and external profiles.
+
+# Docker build
+
+```shell
+docker buildx build --platform linux/amd64 . -t jiumumu/singboxconvertor:dev --push --cache-to type=registry,ref=jiumumu/singboxconvertor-cache:dev,mode=max --cache-from type=registry,ref=jiumumu/singboxconvertor-cache:dev
+```
