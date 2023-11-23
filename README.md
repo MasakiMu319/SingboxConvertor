@@ -46,10 +46,19 @@ Most changes to the profile template will be preserved, as will adding nodes to 
 # TO-DO list
 - ~~web/frontend.html send some needless requests~~(Fixed in v0.2).
 - Refactor the central portion of the codebase.
-- When copying the generated subscription address in the dev version, the request to generate the subscription may be sent repeatedly. 
-  - dev 版本中复制生成的订阅地址的时候可能会重复发送生成订阅的请求
+- ~~When copying the generated subscription address in the dev version, the request to generate the subscription may be sent repeatedly~~. 
 - Scenarios where the server level fails to handle concurrent fetch requests correctly may result in lost requests or failure of the server level to issue subscription files correctly.
   - 服务端无法正确处理并发获取请求的场景，可能会导致请求丢失或者服务端无法正确下发订阅文件。
+- Consider adding a configuration file upload function or providing a configuration file template.
+  - 考虑支持上传配置文件或者服务端提供配置文件模板；
+
+**v1.x 版本的开发计划：**
+- 引入用户系统，用于支持用户维护自己的订阅和配置模板；
+- 对配置文件部分进行重构，允许用户自行配置 DNS 和分流规则部分；
+- DNS 提供的默认配置：海外走 Google/Cloudflare，国内走腾讯/阿里；
+- 分流规则可能优先支持：DOMAIN-SUFFIX、DOMAIN-KEYWORD、GEOSITE、GEOIP，GEO*部分会直接提供列表进行勾选；
+- 暂定允许用户自定义两个配置文件模板；
+- 支持同后端的用户间分享配置模板。
 
 # Change Log
 - 0.1
@@ -66,9 +75,4 @@ Most changes to the profile template will be preserved, as will adding nodes to 
   - Refactor project front-end page structure.
   - Encrypt incoming subscription connections and external profiles.
   - Fixed an issue with replication subscriptions.
-
-# Docker build
-
-```shell
-docker buildx build --builder=container --platform linux/amd64 . -t jiumumu/singboxconvertor:dev --push --cache-to type=registry,ref=jiumumu/singboxconvertor-cache:dev,mode=max --cache-from type=registry,ref=jiumumu/singboxconvertor-cache:dev
- ```
+  - Fixed not allowing subscription generation if sub and configurl are empty.
