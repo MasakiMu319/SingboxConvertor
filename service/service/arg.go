@@ -1,6 +1,7 @@
 package service
 
 import (
+	"SingboxConvertor/clash2singbox/httputils"
 	"SingboxConvertor/model"
 	"SingboxConvertor/utils"
 	"bytes"
@@ -8,7 +9,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/xmdhs/clash2singbox/httputils"
 	"net/http"
 	"regexp"
 	"strconv"
