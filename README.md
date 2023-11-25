@@ -44,15 +44,11 @@ Most changes to the profile template will be preserved, as will adding nodes to 
 - tuic5
 
 # TO-DO list
-- ~~web/frontend.html send some needless requests~~(Fixed in v0.2).
-- Refactor the central portion of the codebase.
-- ~~When copying the generated subscription address in the dev version, the request to generate the subscription may be sent repeatedly~~. 
-- Scenarios where the server level fails to handle concurrent fetch requests correctly may result in lost requests or failure of the server level to issue subscription files correctly.
-  - 服务端无法正确处理并发获取请求的场景，可能会导致请求丢失或者服务端无法正确下发订阅文件。
-- Consider adding a configuration file upload function or providing a configuration file template.
-  - 考虑支持上传配置文件或者服务端提供配置文件模板；
+**v1.x 版本开发进度**
+- 重构项目结构，引入 MongoDB 作为项目持久化存储数据库；
+- 用户系统的相关 api 已交付，支持用户登陆，登出，注册；
 
-**v1.x 版本的开发计划：**
+**v1.x 版本开发计划：**
 - 引入用户系统，用于支持用户维护自己的订阅和配置模板；
 - 对配置文件部分进行重构，允许用户自行配置 DNS 和分流规则部分；
 - DNS 提供的默认配置：海外走 Google/Cloudflare，国内走腾讯/阿里；
@@ -70,7 +66,7 @@ Most changes to the profile template will be preserved, as will adding nodes to 
   - (0.2.3) Added more log information.
 - 0.3
   - Refactor the project dependency structure and fix the Missing tag error caused by the filter node being empty.
-- 0.4(dev)
+- 0.4
   - Update index logo.
   - Refactor project front-end page structure.
   - Encrypt incoming subscription connections and external profiles.
