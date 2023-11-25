@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"SingboxConvertor/model"
+	"SingboxConvertor/api/model"
 	"encoding/json"
 )
 

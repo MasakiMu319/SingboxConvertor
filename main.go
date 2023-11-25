@@ -1,44 +1,64 @@
 package main
 
 import (
-	"SingboxConvertor/internal/api"
-	"github.com/gin-contrib/cors"
+	"SingboxConvertor/api"
+	"SingboxConvertor/api/handlers"
+	"SingboxConvertor/db"
+	"SingboxConvertor/utils"
+	"context"
+	"github.com/gin-contrib/sessions"
+	redisStore "github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
-	"net/http"
 	"os"
-	"time"
 )
+
+var (
+	authHandler *handlers.AuthHandler
+	subHandler  *handlers.SubHandler
+)
+
+func init() {
+	if err := db.InitMongoClient(); err != nil {
+		utils.ConvertorLogPrintf(err, "Initialization of MongoDB client failed.")
+		os.Exit(1)
+	}
+	collectionUsers := db.MongoClient.Database(db.DB).Collection(db.UserCollection)
+	ctx := context.Background()
+
+	authHandler = handlers.NewAuthHandler(ctx, collectionUsers)
+	subHandler = &handlers.SubHandler{}
+}
 
 func main() {
 	r := gin.Default()
-
-	r.Use(cors.Default())
-
-	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{
-			"http://localhost:3000",
-		},
-		AllowMethods:     []string{"GET", "OPTIONS"},
-		AllowHeaders:     []string{"Origin"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
-	}))
-
 	r.Static("/web", "./web")
+	setupRoutes(r)
 
-	r.GET("/sub", api.GetSubscription)
-	r.POST("/generate", api.PostGenerate)
-	r.GET("/", api.GetFrontend)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	_ = r.Run(":" + port)
+}
 
-	r.NoRoute(func(context *gin.Context) {
-		context.Redirect(http.StatusMovedPermanently, "/")
+func setupRoutes(router *gin.Engine) {
+	store, _ := redisStore.NewStore(10, "tcp", "localhost:6379", "", []byte("secret"))
+	store.Options(sessions.Options{
+		MaxAge: 86400,
 	})
+	router.Use(sessions.Sessions("configurations_api", store))
 
-	// export PORT=8080
-	if p := os.Getenv("PORT"); p != "" {
-		_ = r.Run(":" + p)
-	} else {
-		_ = r.Run()
+	router.GET("/", api.GetFrontend)
+
+	router.POST("/signin", authHandler.SignInHandler)
+	router.POST("/signout", authHandler.SignOutHandler)
+	router.POST("/signup", authHandler.SignUpHandler)
+	router.POST("/refresh", authHandler.RefreshHandler)
+
+	authorized := router.Group("/")
+	authorized.Use(authHandler.AuthMiddleware())
+	{
+		authorized.GET("/sub", subHandler.GetSubHandler)
+		authorized.POST("/generate", subHandler.GenSubHandler)
 	}
 }

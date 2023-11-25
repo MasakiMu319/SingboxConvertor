@@ -1,8 +1,8 @@
 package service
 
 import (
+	"SingboxConvertor/api/model"
 	"SingboxConvertor/clash2singbox/httputils"
-	"SingboxConvertor/model"
 	"SingboxConvertor/utils"
 	"bytes"
 	"encoding/json"

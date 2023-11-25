@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "655f9cd6e6ca09a78d0b1f51"
+  },
+  "server_tag": "google",
+  "address": "h3://8.8.8.8/dns-query",
+  "address_strategy": "prefer_ipv4",
+  "detour": "select"
+},
+{
+  "_id": {
+    "$oid": "655fa188e6ca09a78d0b1f5c"
+  },
+  "server_tag": "ali",
+  "address": "https://223.5.5.5/dns-query",
+  "address_strategy": "prefer_ipv4",
+  "detour": "direct"
+},
+{
+  "_id": {
+    "$oid": "656071b4e6ca09a78d0b1f5f"
+  },
+  "server_tag": "tencent",
+  "address": "https://120.53.53.53/dns-query",
+  "address_strategy": "prefer_ipv4",
+  "detour": "direct"
+},
+{
+  "_id": {
+    "$oid": "656071cbe6ca09a78d0b1f60"
+  },
+  "server_tag": "byte",
+  "address": "180.184.1.1",
+  "address_strategy": "prefer_ipv4",
+  "detour": "direct"
+}]
